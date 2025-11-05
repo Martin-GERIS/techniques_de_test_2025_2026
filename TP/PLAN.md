@@ -4,17 +4,17 @@
 
 Le service de triangulation est connecté au service `Client` ainsi qu'au service `PointSetManager`. Il communique avec ces services en binaire.<br>
 
+### Classe `Point`
+Un attribut pour chaqu'une des deux coordonnées<br>
+
 ### Classe `PointSet`
-Un attribut nombre correspondant aux nombre de point. Un attribut liste contenant les coordonnées de chaque point.<br>
-Une méthode de conversion en `PointSetBinary`<br>
+Un attribut nombre correspondant aux nombre de point. Un attribut liste contenant les coordonnées de chaque `Point`.<br>
 
 ### Classe `Triangle`
 Un attribut pour les coordonnées de chaque somment.  <br>
-Une méthode de conversion en `TriangleBinary`  <br>
 
 ### Classe `Triangles`
 Un attribut `PointSet`. Un attribut liste contenant `Triangle`.<br>
-Une méthode de conversion en `TrianglesBinary`<br>
 
 
 
