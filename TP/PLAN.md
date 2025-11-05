@@ -33,8 +33,8 @@ Test avec un `PointSet` de 6 points colinéaires     -> Appartion d'une erreur<b
 
 Test avec une valeur binaire correspondant à un `PointSet`              -> Renvoie le `PointSet`<br>
 Test avec une valeur binaire ne correspondant pas à un `PointSet`       -> Appartion d'une erreur<br>
-Test avec une valeur binaire correspondant à un `PointSet` dont le 
-nombre de point annoncé ne correspond pas au nombre de point listé      -> Appartion d'une erreur<br>
+Test avec une valeur binaire correspondant à un `PointSet` dont le      -> Appartion d'une erreur<br>
+nombre de point annoncé ne correspond pas au nombre de point listé                              <br>
 Test avec une valeur binaire correspondant à un `PointSet` vide         -> Appartion d'une erreur<br>
 
 ### Convertisseur Triangles Binaire
