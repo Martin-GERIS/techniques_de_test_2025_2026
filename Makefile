@@ -1,13 +1,12 @@
 test:
 	pytest -v
 
-
 unit_test:
 	pytest -v Triangulator/Tests/test_unit.py
 	pytest -v Triangulator/Tests/test_integration.py
 
 perf_test:
-	
+	pytest -v Triangulator/Tests/test_perf.py
 
 coverage:
 	coverage run -m pytest

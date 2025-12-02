@@ -5,7 +5,7 @@
 Le service de triangulation est connecté au service `Client` ainsi qu'au service `PointSetManager`. Il communique avec ces services en binaire.<br>
 
 ### Classe `Point`
-Un attribut pour chaqu'une des deux coordonnées<br>
+Un attribut pour chacune des deux coordonnées<br>
 
 ### Classe `PointSet`
 Un attribut liste contenant les coordonnées de chaque `Point`.<br>
@@ -16,7 +16,7 @@ Un attribut pour les coordonnées de chaque somment.  <br>
 ### Classe `Triangles`
 Un attribut `PointSet`. Un attribut liste contenant des `Triangle`.<br>
 
-### Fonction `Tringulator`
+### Fonction `Tringulation`
 
 ### Fonction `DecimalConverter`
 Utilise une valeur binaire pour renvoyer un `PointSet`.<br>
@@ -86,9 +86,9 @@ nombre de point annoncé ne correspond pas au nombre de point listé
 - [ ] Mesure du temps de réponse avec un `PointSet` de 30 points<br>
 - [ ] Mesure du temps de réponse avec un `PointSet` de 150 points<br>
 
-- [ ] Mesure du temps de réponse avec 1 `PointSetID` par seconde<br>
-- [ ] Mesure du temps de réponse avec 10 `PointSetID` par seconde<br>
-- [ ] Mesure du temps de réponse avec 50 `PointSetID` par seconde<br>
+- [ ] Mesure du temps de réponse avec 1 `PointSetID`<br>
+- [ ] Mesure du temps de réponse avec 10 `PointSetID`<br>
+- [ ] Mesure du temps de réponse avec 50 `PointSetID`<br>
 
 ### Test d'endurance
 
