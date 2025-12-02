@@ -1,8 +1,6 @@
 from unittest.mock import patch, MagicMock
-import pytest
 import uuid
-import App.functions
-import App.classes
+from App.functions import getTriangulation
 
 
 

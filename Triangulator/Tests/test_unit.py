@@ -1,8 +1,8 @@
 import pytest
 import uuid
 from unittest.mock import patch, MagicMock
-import App.functions
-import App.classes
+from App.functions import triangulation
+from App.classes import Point, PointSet 
 
 
 
