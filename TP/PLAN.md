@@ -5,7 +5,7 @@
 Le service de triangulation est connecté au service `Client` ainsi qu'au service `PointSetManager`. Il communique avec ces services en binaire.<br>
 
 ### Classe `Point`
-Un attribut pour chaqu'une des deux coordonnées<br>
+Un attribut pour chacune des deux coordonnées<br>
 
 ### Classe `PointSet`
 Un attribut liste contenant les coordonnées de chaque `Point`.<br>
@@ -14,15 +14,21 @@ Un attribut liste contenant les coordonnées de chaque `Point`.<br>
 Un attribut pour les coordonnées de chaque somment.  <br>
 
 ### Classe `Triangles`
-Un attribut `PointSet`. Un attribut liste contenant `Triangle`.<br>
+Un attribut `PointSet`. Un attribut liste contenant des `Triangle`.<br>
 
-### Fonction `Tringulator`
+### Fonction `Tringulation`
 
 ### Fonction `DecimalConverter`
-Renvoie un `PointSet`.
+Utilise une valeur binaire pour renvoyer un `PointSet`.<br>
 
 ### Fonction `BinaryConverter`
-Renvoie une valeur binaire.
+Utilise un `Triangles` pour renvoyer une valeur binaire correspondante.<br>
+
+### Fonction `CallPointSetManager`
+Demande à `PointSetManager` le `PointSet` relatif au `PointSetId`. Renvoit ce `PointSet` et le code de `PointSetManager`.<br>
+
+### Fonction `GetTriangulation`
+Recoit un `PointSetId` du `Client` pour lui renvoiyer une valeur binaire référent un `Triangles`.<br>
 
 
 ## Tests unitaires
@@ -36,7 +42,7 @@ Renvoie une valeur binaire.
 - [x] Test avec un `PointSet` de 1 points                           -> Apparition d'une erreur<br>
 - [x] Test avec un `PointSet` de 3 points colinéaires               -> Apparition d'une erreur<br>
 - [x] Test avec un `PointSet` de 4 points dont 3 sont colinéaires   -> Renvoie un `Triangles` de 2 triangle<br>
-- [ ] Test avec un `PointSet` de 3 points dont 2 superposé          -> Renvoie un `Triangles` de 2 triangle<br>
+- [x] Test avec un `PointSet` de 3 points dont 2 superposé          -> Renvoie un `Triangles` de 2 triangle<br>
 
 ### Convertisseur PointSet Décimal
 
@@ -44,27 +50,31 @@ Renvoie une valeur binaire.
 - [x] Test avec une valeur binaire ne correspondant pas à un `PointSet`       -> Apparition d'une erreur<br>
 - [x] Test avec une valeur binaire correspondant à un `PointSet` dont le      -> Apparition d'une erreur<br>
 nombre de point annoncé ne correspond pas au nombre de point listé
-- [ ] Test avec une valeur binaire correspondant à un `PointSet` vide         -> Apparition d'une erreur<br>
+- [x] Test avec une valeur binaire correspondant à un `PointSet` vide         -> Apparition d'une erreur<br>
 
 ### Convertisseur Triangles Binaire
 
-- [ ] Test avec un `Triangles`          -> une valeur binaire correspondant au `Triangles`<br>
-- [ ] Test avec un `Triangles` vide     -> Apparition d'une erreur<br>
-- [ ] Test avec une variable nulle      -> Apparition d'une erreur<br>
+- [x] Test avec un `Triangles`          -> une valeur binaire correspondant au `Triangles`<br>
+- [x] Test avec un `Triangles` vide     -> Apparition d'une erreur<br>
+- [x] Test avec une variable nulle      -> Apparition d'une erreur<br>
+
+### Appel de PointSetManager
+
+- [x] Test avec un `PointSetId` valide                                      -> revoie `200`, un `PointSet`<br>
+- [x] Test avec un `PointSetId` invalide                                    -> revoie `400`, une variable nulle<br>
+- [x] Test avec un `PointSetId` valide mais inconnu                         -> revoie `404`, une variable nulle<br>
+- [x] Test avec un `PointSetId` valide et une erreur de la base de données  -> revoie `503`, une variable nulle<br>
 
 
 
 ## Tests d'intégration
 
-### Reception PointSetID du Client
+### Intégralité de la pipeline
 
-- [ ] Test avec un `PointSetID` valide    -> envoie du `PointSetID` au `PointSetManager`<br>
-- [ ] Test avec un `PointSetID` invalide  -> Apparition d'une erreur, envoie du message d'erreur au Client<br>
-
-### Reception PointSet en binaire du PointSetManager
-
-- [ ] Test avec une valeur binaire correspondant à un `PointSet`          -> envoire d'un `Triangles` correspondant <br>
-- [ ] Test avec une valeur binaire ne correspondant pas à un `PointSet`   -> Apparition d'une erreur, envoie du message d'erreur au PointSetManager<br>
+- [x] Test avec un `PointSetId` valide                                                          -> revoie une valeur binaire d'un `Triangles`, `200`<br>
+- [x] Test avec un `PointSetId` invalide                                                        -> `400`<br>
+- [x] Test avec un `PointSetId` inconnu                                                         -> `404`<br>
+- [x] Test avec un `PointSetId` valide et une erreur de communication avec `PointSetManager`    -> `503`<br>
 
 
 
@@ -76,9 +86,9 @@ nombre de point annoncé ne correspond pas au nombre de point listé
 - [ ] Mesure du temps de réponse avec un `PointSet` de 30 points<br>
 - [ ] Mesure du temps de réponse avec un `PointSet` de 150 points<br>
 
-- [ ] Mesure du temps de réponse avec 1 `PointSetID` par seconde<br>
-- [ ] Mesure du temps de réponse avec 10 `PointSetID` par seconde<br>
-- [ ] Mesure du temps de réponse avec 50 `PointSetID` par seconde<br>
+- [ ] Mesure du temps de réponse avec 1 `PointSetID`<br>
+- [ ] Mesure du temps de réponse avec 10 `PointSetID`<br>
+- [ ] Mesure du temps de réponse avec 50 `PointSetID`<br>
 
 ### Test d'endurance
 
