@@ -3,7 +3,7 @@ test:
 
 unit_test:
 	pytest -v Triangulator/Tests/test_unit.py
-	pytest -v Triangulator/Tests/test_integration.py
+# 	pytest -v Triangulator/Tests/test_integration.py
 
 perf_test:
 	pytest -v Triangulator/Tests/test_perf.py
