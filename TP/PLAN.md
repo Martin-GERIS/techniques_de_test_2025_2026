@@ -14,7 +14,7 @@ Un attribut liste contenant les coordonnées de chaque `Point`.<br>
 Un attribut pour les coordonnées de chaque somment.  <br>
 
 ### Classe `Triangles`
-Un attribut `PointSet`. Un attribut liste contenant des `Triangle`.<br>
+Un attribut `PointSet`. Un attribut liste contenant les indices des `Point` du Triangle dans le `PointSet`.<br>
 
 ### Fonction `Tringulation`
 Utilise un `PointSet` pour renvoyer un `Triangles`.<br>

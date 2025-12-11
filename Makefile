@@ -9,7 +9,7 @@ perf_test:
 	pytest -v Triangulator/Tests/test_perf.py
 
 coverage:
-	coverage run -m pytest
+	coverage run -m pytest Triangulator/Tests/test_unit.py
 	coverage html
 	coverage report
 

@@ -1,5 +1,5 @@
 import struct
-from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError
+from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError, EmptyPointSetError  
 
 def triangulation(pointset):
     if not isinstance(pointset, PointSet):
@@ -101,12 +101,19 @@ def triangulation(pointset):
     # Supprimer tous les triangles qui contiennent des sommets du super-triangle
     final_triangles = []
     super_points = {p1, p2, p3}
-    
+
+    # Créer un dictionnaire pour récupérer l'indice de chaque point dans le PointSet
+    point_index = {p: i for i, p in enumerate(pointset.get_pointset())}
+
     for triangle in triangulation.get_triangles():
         if not (triangle.contains_vertex(p1) or 
                 triangle.contains_vertex(p2) or 
                 triangle.contains_vertex(p3)):
-            final_triangles.append(triangle)
+            # Remplacer les points par leurs indices
+            indices = [point_index[triangle.a],
+                    point_index[triangle.b],
+                    point_index[triangle.c]]
+            final_triangles.append(indices)
     
     return Triangles(pointset, final_triangles)
 
@@ -124,5 +131,26 @@ def decimalConverter(bin):
         points.append(Point(x, y))
     return PointSet(points)
 
-def binaryConverter():
-    pass
+def binaryConverter(triangles):
+
+    if triangles.get_pointset() is None:
+        raise(EmptyPointSetError)
+    if len(triangles.get_pointset().get_pointset())<3:
+        raise(EmptyPointSetError)
+
+    pointset = triangles.get_pointset().get_pointset()
+    data = struct.pack('!L', len(pointset))
+    for p in pointset:
+        data += struct.pack('!f', p.get_x())
+        data += struct.pack('!f', p.get_y())
+
+    triangleset = triangles.get_triangles()
+    data += struct.pack('!L', len(triangleset))
+    for t in triangleset:
+        indices = list(t)
+        data += struct.pack('!L', indices[0])
+        data += struct.pack('!L', indices[1])
+        data += struct.pack('!L', indices[2])
+    
+    return data
+

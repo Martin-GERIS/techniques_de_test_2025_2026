@@ -2,7 +2,7 @@ import pytest
 import uuid
 from unittest.mock import patch, MagicMock
 from App.functions import triangulation, decimalConverter, binaryConverter
-from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError
+from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError, EmptyPointSetError
 
 
 
@@ -99,30 +99,32 @@ class TestDecimalConverter :
 
 
 
-# class TestBinaryConverter :
+class TestBinaryConverter :
 
-#     # Début de la chaine correspond au PointSet défini ci-dessus        Définition du code binaire
-#     # 00000000000000000000000000000001 -> 1
-#     # 00000000000000000000000000000000 -> 0  
-#     # 00000000000000000000000000000001 -> 1
-#     # 00000000000000000000000000000010 -> 2
-#     def test_binaryconverter_valid(self):
-#         A = Point(-0.5, -0.5)
-#         B = Point(0, 1)
-#         C = Point(1.5, 0)
-#         ABD = Triangle(A, B, C)
-#         triangles = Triangles(PointSet([A, B, C]), [ABD])                                                                                                                                                                                                                      # A partir du "#", début de la chaine pour définir le nombre de triangle et la liste des sommets 
-#         assert binaryConverter(triangles) == 0b0000000000000000000000000000001110111111000000000000000000000000101111110000000000000000000000000000000000000000000000000000000000111111100000000000000000000000001111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000010
+    # Début de la chaine correspond au PointSet défini ci-dessus        Définition du code binaire
+    # 00000000000000000000000000000001 -> 1
+    # 00000000000000000000000000000000 -> 0  
+    # 00000000000000000000000000000001 -> 1
+    # 00000000000000000000000000000010 -> 2
+    def test_binaryconverter_valid(self):
+        A = Point(-0.5, -0.5)
+        B = Point(0, 1)
+        C = Point(1.5, 0)
+        triangles = Triangles(PointSet([A, B, C]), [set([0, 2, 1])])                                                                                                                                                                                                                      # A partir du "#", début de la chaine pour définir le nombre de triangle et la liste des sommets 
+        assert binaryConverter(triangles) == b'\x00\x00\x00\x03\xbf\x00\x00\x00\xbf\x00\x00\x00\x00\x00\x00\x00\x3f\x80\x00\x00\x3f\xc0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02'
 
-#     def test_binaryconverter_empty_pointset(self):
-#         triangles = Triangles(PointSet([]), [])
-#         with pytest.raises():   #EmptyPointSetError                            
-#             binaryConverter(triangles)
+    def test_binaryconverter_empty_pointset(self):
+        triangles = Triangles(PointSet([]), [])
+        with pytest.raises(EmptyPointSetError):                            
+            binaryConverter(triangles)
 
-#     def test_binaryconverter_None(self):
-#         triangles = None
-#         with pytest.raises():   #EmptyPointSetError                            
-#             binaryConverter(triangles)
+    def test_binaryconverter_None(self):
+        A = Point(-0.5, -0.5)
+        B = Point(0, 1)
+        C = Point(1.5, 0)
+        triangles = Triangles(None, None)
+        with pytest.raises(EmptyPointSetError):                            
+            binaryConverter(triangles)
 
 
 

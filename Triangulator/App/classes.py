@@ -78,6 +78,9 @@ class Triangles:
         self.pointset = list_points
         self.triangles = list_triangles
 
+    def get_pointset(self):
+        return self.pointset
+
     def get_triangles(self):
         return self.triangles
     
@@ -97,4 +100,8 @@ class OverlappingError(ArithmeticError):
 
 class WrongMaskError(ValueError):
     """Quand une valeur binaire n'a pas le bon format"""
+    pass
+
+class EmptyPointSetError(ValueError):
+    """Quand un PointSet est vide ou nulle"""
     pass
