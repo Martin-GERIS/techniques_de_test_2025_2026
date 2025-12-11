@@ -1,4 +1,5 @@
-from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError
+import struct
+from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError
 
 def triangulation(pointset):
     if not isinstance(pointset, PointSet):
@@ -108,3 +109,20 @@ def triangulation(pointset):
             final_triangles.append(triangle)
     
     return Triangles(pointset, final_triangles)
+
+def decimalConverter(bin):
+    if len(bin)<=4:
+        raise(WrongMaskError)
+    num_points = struct.unpack('!L', bin[:4])[0]
+    if len(bin)!=4 + num_points * 8:
+        raise(WrongMaskError)
+    points = []
+    for i in range(num_points):
+        start = 4 + i * 8
+        x = struct.unpack('!f', bin[start:start+4])[0]
+        y = struct.unpack('!f', bin[start+4:start+8])[0]
+        points.append(Point(x, y))
+    return PointSet(points)
+
+def binaryConverter():
+    pass

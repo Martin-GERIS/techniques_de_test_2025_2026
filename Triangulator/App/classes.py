@@ -5,6 +5,18 @@ class Point:
         self.x = x
         self.y = y
 
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+    
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+    
+    def __eq__(self, other):
+        return isinstance(other, Point) and self.x == other.x and self.y == other.y
+    
+    def __hash__(self):
+        return hash((self.x, self.y))
+
     def get_x(self):
         return self.x
     
@@ -15,6 +27,9 @@ class PointSet:
     '''Un attribut liste d'instance de Point'''
     def __init__(self, list_points):
         self.pointset = list_points
+
+    def __str__(self):
+        return '[' + ', '.join(str(p) for p in self.pointset) + ']'
 
     def get_pointset(self):
         return self.pointset
@@ -78,4 +93,8 @@ class ColinearityError(ArithmeticError):
 
 class OverlappingError(ArithmeticError):
     """Quand au moins deux points d'un ensemble se superposent"""
+    pass
+
+class WrongMaskError(ValueError):
+    """Quand une valeur binaire n'a pas le bon format"""
     pass

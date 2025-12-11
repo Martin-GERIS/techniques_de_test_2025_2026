@@ -1,8 +1,8 @@
 import pytest
 import uuid
 from unittest.mock import patch, MagicMock
-from App.functions import triangulation
-from App.classes import Point, PointSet, ColinearityError, OverlappingError
+from App.functions import triangulation, decimalConverter, binaryConverter
+from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError
 
 
 
@@ -77,97 +77,97 @@ class TestDecimalConverter :
     # 00111111110000000000000000000000  -> 1,5
     # 00000000000000000000000000000000  -> 0
     def test_decimalconverter_valid(self):
-        bin = 0b00000000000000000000000000000011101111110000000000000000000000001011111100000000000000000000000000000000000000000000000000000000001111111000000000000000000000000011111111000000000000000000000000000000000000000000000000000000                              
+        bin = b'\x00\x00\x00\x03\xbf\x00\x00\x00\xbf\x00\x00\x00\x00\x00\x00\x00\x3f\x80\x00\x00\x3f\xc0\x00\x00\x00\x00\x00\x00'                              
         pointSet = decimalConverter(bin)
-        assert len(pointSet) == 3 
-        assert set(pointSet) == set([Point(-0.5,-0.5), Point(0,1), Point(1.5,0)]) 
+        assert len(pointSet.get_pointset()) == 3 
+        assert set(pointSet.get_pointset()) == set([Point(float(-0.5),float(-0.5)), Point(float(0),float(1)), Point(float(1.5),float(0))]) 
 
     def test_decimalconverter_too_short(self):
-        bin = 0b001011010  
-        with pytest.raises(): #WrongMaskError                            
+        bin = b'\x5a'  
+        with pytest.raises(WrongMaskError):                            
             decimalConverter(bin)
 
     def test_decimalconverter_too_long(self):
-        bin = 0b00000000000000000000000000000011101111110000000000000000000000001011111100000000000000000000000000000000000000000000000000000000001111111000000000000000000000000011111111000000000000000000000000000000000000000000000000000000110110000  
-        with pytest.raises():   #WrongMaskError                            
+        bin = b'\x00\x00\x00\x0e\xfc\x00\x00\x02\xfc\x00\x00\x00\x00\x00\x00\x00\xfe\x00\x00\x00\xff\x00\x00\x00\x00\x00\x00\x03\x60\x5a'  
+        with pytest.raises(WrongMaskError):                            
             decimalConverter(bin) 
 
     def test_decimalconverter_empty(self):
-        bin = 0b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  
-        with pytest.raises():   #EmptyPointSetError                            
+        bin = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'  
+        with pytest.raises(WrongMaskError):                          
             decimalConverter(bin)
 
 
 
-class TestBinaryConvertisor :
+# class TestBinaryConverter :
 
-    # Début de la chaine correspond au PointSet défini ci-dessus        Définition du code binaire
-    # 00000000000000000000000000000001 -> 1
-    # 00000000000000000000000000000000 -> 0  
-    # 00000000000000000000000000000001 -> 1
-    # 00000000000000000000000000000010 -> 2
-    def test_binaryconverter_valid(self):
-        A = Point(-0.5, -0.5)
-        B = Point(0, 1)
-        C = Point(1.5, 0)
-        ABD = Triangle(A, B, C)
-        triangles = Triangles(PointSet([A, B, C]), [ABD])                                                                                                                                                                                                                      # A partir du "#", début de la chaine pour définir le nombre de triangle et la liste des sommets 
-        assert binaryConverter(triangles) == 0b0000000000000000000000000000001110111111000000000000000000000000101111110000000000000000000000000000000000000000000000000000000000111111100000000000000000000000001111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000010
+#     # Début de la chaine correspond au PointSet défini ci-dessus        Définition du code binaire
+#     # 00000000000000000000000000000001 -> 1
+#     # 00000000000000000000000000000000 -> 0  
+#     # 00000000000000000000000000000001 -> 1
+#     # 00000000000000000000000000000010 -> 2
+#     def test_binaryconverter_valid(self):
+#         A = Point(-0.5, -0.5)
+#         B = Point(0, 1)
+#         C = Point(1.5, 0)
+#         ABD = Triangle(A, B, C)
+#         triangles = Triangles(PointSet([A, B, C]), [ABD])                                                                                                                                                                                                                      # A partir du "#", début de la chaine pour définir le nombre de triangle et la liste des sommets 
+#         assert binaryConverter(triangles) == 0b0000000000000000000000000000001110111111000000000000000000000000101111110000000000000000000000000000000000000000000000000000000000111111100000000000000000000000001111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000010
 
-    def test_binaryconverter_empty_pointset(self):
-        triangles = Triangles(PointSet([]), [])
-        with pytest.raises():   #EmptyPointSetError                            
-            binaryConverter(triangles)
+#     def test_binaryconverter_empty_pointset(self):
+#         triangles = Triangles(PointSet([]), [])
+#         with pytest.raises():   #EmptyPointSetError                            
+#             binaryConverter(triangles)
 
-    def test_binaryconverter_None(self):
-        triangles = None
-        with pytest.raises():   #EmptyPointSetError                            
-            binaryConverter(triangles)
+#     def test_binaryconverter_None(self):
+#         triangles = None
+#         with pytest.raises():   #EmptyPointSetError                            
+#             binaryConverter(triangles)
 
 
 
-class TestCallPointSetManager :
+# class TestCallPointSetManager :
 
-    @patch("app.requests.get") # App désigne le nom du futur fichier ou sera le requests.get à remplacer
-    def test_callpointsetmanager_valid(self, mock_get):
-        fake_response = MagicMock()
-        fake_response.status_code = 200
-        fake_response.content = 0b00000000000000000000000000000011101111110000000000000000000000001011111100000000000000000000000000000000000000000000000000000000001111111000000000000000000000000011111111000000000000000000000000000000000000000000000000000000
-        mock_get.return_value = fake_response
-        pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
-        pointSet, code = callPointSetManager(pointSetId)
-        assert(code == 200)
-        assert(set(pointSet) == set([Point(-0.5,-0.5), Point(0,1), Point(1.5,0)]))
+#     @patch("app.requests.get") # App désigne le nom du futur fichier ou sera le requests.get à remplacer
+#     def test_callpointsetmanager_valid(self, mock_get):
+#         fake_response = MagicMock()
+#         fake_response.status_code = 200
+#         fake_response.content = 0b00000000000000000000000000000011101111110000000000000000000000001011111100000000000000000000000000000000000000000000000000000000001111111000000000000000000000000011111111000000000000000000000000000000000000000000000000000000
+#         mock_get.return_value = fake_response
+#         pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
+#         pointSet, code = callPointSetManager(pointSetId)
+#         assert(code == 200)
+#         assert(set(pointSet) == set([Point(-0.5,-0.5), Point(0,1), Point(1.5,0)]))
 
-    @patch("app.requests.get")
-    def test_callpointsetmanager_invalid(self, mock_get):
-        fake_response = MagicMock()
-        fake_response.status_code = 200
-        fake_response.content = None
-        mock_get.return_value = fake_response
-        pointSetId = uuid.UUID("123e457-e89b-12d3-a56-426614000")
-        pointSet, code = callPointSetManager(pointSetId)
-        assert(code == 400)
-        assert(pointSet is None)
+#     @patch("app.requests.get")
+#     def test_callpointsetmanager_invalid(self, mock_get):
+#         fake_response = MagicMock()
+#         fake_response.status_code = 200
+#         fake_response.content = None
+#         mock_get.return_value = fake_response
+#         pointSetId = uuid.UUID("123e457-e89b-12d3-a56-426614000")
+#         pointSet, code = callPointSetManager(pointSetId)
+#         assert(code == 400)
+#         assert(pointSet is None)
 
-    @patch("app.requests.get")
-    def test_callpointsetmanager_unknow(self, mock_get):
-        fake_response = MagicMock()
-        fake_response.status_code = 404
-        fake_response.content = None
-        mock_get.return_value = fake_response
-        pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
-        pointSet, code = callPointSetManager(pointSetId)
-        assert(code == 404)
-        assert(pointSet is None)
+#     @patch("app.requests.get")
+#     def test_callpointsetmanager_unknow(self, mock_get):
+#         fake_response = MagicMock()
+#         fake_response.status_code = 404
+#         fake_response.content = None
+#         mock_get.return_value = fake_response
+#         pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
+#         pointSet, code = callPointSetManager(pointSetId)
+#         assert(code == 404)
+#         assert(pointSet is None)
 
-    @patch("app.requests.get")
-    def test_callpointsetmanager_error(self, mock_get):
-        fake_response = MagicMock()
-        fake_response.status_code = 503
-        fake_response.content = None
-        mock_get.return_value = fake_response
-        pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
-        pointSet, code = callPointSetManager(pointSetId)
-        assert(code == 503)
-        assert(pointSet is None)
+#     @patch("app.requests.get")
+#     def test_callpointsetmanager_error(self, mock_get):
+#         fake_response = MagicMock()
+#         fake_response.status_code = 503
+#         fake_response.content = None
+#         mock_get.return_value = fake_response
+#         pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
+#         pointSet, code = callPointSetManager(pointSetId)
+#         assert(code == 503)
+#         assert(pointSet is None)

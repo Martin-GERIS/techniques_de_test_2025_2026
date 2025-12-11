@@ -17,6 +17,7 @@ Un attribut pour les coordonnées de chaque somment.  <br>
 Un attribut `PointSet`. Un attribut liste contenant des `Triangle`.<br>
 
 ### Fonction `Tringulation`
+Utilise un `PointSet` pour renvoyer un `Triangles`.<br>
 
 ### Fonction `DecimalConverter`
 Utilise une valeur binaire pour renvoyer un `PointSet`.<br>
