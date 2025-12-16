@@ -1,7 +1,8 @@
 import pytest
 import uuid
+from urllib import request
 from unittest.mock import patch, MagicMock
-from App.functions import triangulation, decimalConverter, binaryConverter
+from App.functions import triangulation, decimalConverter, binaryConverter, callPointSetManager
 from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError, EmptyPointSetError
 
 
@@ -128,48 +129,48 @@ class TestBinaryConverter :
 
 
 
-# class TestCallPointSetManager :
+class TestCallPointSetManager :
 
-#     @patch("app.requests.get") # App désigne le nom du futur fichier ou sera le requests.get à remplacer
-#     def test_callpointsetmanager_valid(self, mock_get):
-#         fake_response = MagicMock()
-#         fake_response.status_code = 200
-#         fake_response.content = 0b00000000000000000000000000000011101111110000000000000000000000001011111100000000000000000000000000000000000000000000000000000000001111111000000000000000000000000011111111000000000000000000000000000000000000000000000000000000
-#         mock_get.return_value = fake_response
-#         pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
-#         pointSet, code = callPointSetManager(pointSetId)
-#         assert(code == 200)
-#         assert(set(pointSet) == set([Point(-0.5,-0.5), Point(0,1), Point(1.5,0)]))
+    @patch("App.functions.request.urlopen") # App désigne le nom du futur fichier ou sera le requests.get à remplacer
+    def test_callpointsetmanager_valid(self, mock_urlopen):
+        fake_response = MagicMock()
+        fake_response.status = 200
+        fake_response.read.return_value = b'\x00\x00\x00\x03\xbf\x00\x00\x00\xbf\x00\x00\x00\x00\x00\x00\x00\x3f\x80\x00\x00\x3f\xc0\x00\x00\x00\x00\x00\x00'
+        mock_urlopen.return_value = fake_response
+        pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
+        pointSetBin, code = callPointSetManager(pointSetId)
+        assert(code == 200)
+        assert(pointSetBin==b'\x00\x00\x00\x03\xbf\x00\x00\x00\xbf\x00\x00\x00\x00\x00\x00\x00\x3f\x80\x00\x00\x3f\xc0\x00\x00\x00\x00\x00\x00')
 
-#     @patch("app.requests.get")
-#     def test_callpointsetmanager_invalid(self, mock_get):
-#         fake_response = MagicMock()
-#         fake_response.status_code = 200
-#         fake_response.content = None
-#         mock_get.return_value = fake_response
-#         pointSetId = uuid.UUID("123e457-e89b-12d3-a56-426614000")
-#         pointSet, code = callPointSetManager(pointSetId)
-#         assert(code == 400)
-#         assert(pointSet is None)
+    @patch("App.functions.request.urlopen")
+    def test_callpointsetmanager_invalid(self, mock_urlopen):
+        fake_response = MagicMock()
+        fake_response.status = 400
+        fake_response.read.return_value = None
+        mock_urlopen.return_value = fake_response
+        pointSetId = "123e457-e89b-12d3-a56-426614000"
+        pointSet, code = callPointSetManager(pointSetId)
+        assert(code == 400)
+        assert(pointSet is None)
 
-#     @patch("app.requests.get")
-#     def test_callpointsetmanager_unknow(self, mock_get):
-#         fake_response = MagicMock()
-#         fake_response.status_code = 404
-#         fake_response.content = None
-#         mock_get.return_value = fake_response
-#         pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
-#         pointSet, code = callPointSetManager(pointSetId)
-#         assert(code == 404)
-#         assert(pointSet is None)
+    @patch("App.functions.request.urlopen")
+    def test_callpointsetmanager_unknow(self, mock_urlopen):
+        fake_response = MagicMock()
+        fake_response.status = 404
+        fake_response.read.return_value = None
+        mock_urlopen.return_value = fake_response
+        pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
+        pointSet, code = callPointSetManager(pointSetId)
+        assert(code == 404)
+        assert(pointSet is None)
 
-#     @patch("app.requests.get")
-#     def test_callpointsetmanager_error(self, mock_get):
-#         fake_response = MagicMock()
-#         fake_response.status_code = 503
-#         fake_response.content = None
-#         mock_get.return_value = fake_response
-#         pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
-#         pointSet, code = callPointSetManager(pointSetId)
-#         assert(code == 503)
-#         assert(pointSet is None)
+    @patch("App.functions.request.urlopen")
+    def test_callpointsetmanager_error(self, mock_urlopen):
+        fake_response = MagicMock()
+        fake_response.status = 503
+        fake_response.read.return_value = None
+        mock_urlopen.return_value = fake_response
+        pointSetId = uuid.UUID("123e4567-e89b-12d3-a456-426614174000")
+        pointSet, code = callPointSetManager(pointSetId)
+        assert(code == 503)
+        assert(pointSet is None)

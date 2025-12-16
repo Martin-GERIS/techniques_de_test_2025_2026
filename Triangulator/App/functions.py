@@ -1,5 +1,6 @@
 import struct
 from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError, EmptyPointSetError  
+from urllib import request, error
 
 def triangulation(pointset):
     if not isinstance(pointset, PointSet):
@@ -154,3 +155,29 @@ def binaryConverter(triangles):
     
     return data
 
+def callPointSetManager(pointSetId):
+    url = "http://PointSetManager/pointset"
+    req = request.Request(
+        url=url,
+        method="GET",
+        headers={
+            "Accept": "application/octet-stream"
+        }
+    )
+
+    try:
+        response = request.urlopen(req)
+        status_code = response.status
+        content_type = response.headers.get("Content-Type") 
+        data = response.read()
+        print("Status:", status_code) 
+        print("Content-Type:", content_type) 
+        print("Data:", data)
+        return data, status_code
+    except error.HTTPError as e: 
+        print("Erreur HTTP:", e.code) 
+        print(e.read().decode()) 
+        return None, status_code
+    except error.URLError as e: 
+        print("Erreur réseau:", e.reason)
+        return None, status_code

@@ -29,7 +29,7 @@ Utilise un `Triangles` pour renvoyer une valeur binaire correspondante.<br>
 Demande à `PointSetManager` le `PointSet` relatif au `PointSetId`. Renvoit ce `PointSet` et le code de `PointSetManager`.<br>
 
 ### Fonction `GetTriangulation`
-Recoit un `PointSetId` du `Client` pour lui renvoiyer une valeur binaire référent un `Triangles`.<br>
+Recoit un `PointSetId` du `Client` pour lui renvoyer une valeur binaire référent un `Triangles`.<br>
 
 
 ## Tests unitaires

@@ -6,3 +6,6 @@
 
 <b> 11/12 : </b> <br>
 - Les tests pour la fonction binaryConverter() ne sont pas assez nombreux. Bien qu'il couvre l'intégralité du code, il ne vérifie pas des certains scénarios. Il serait pertinent d'ajouter des tests.
+
+<b> 16/12 : </b> <br>
+- Le terme tests d'intégrations donné à certains test dans cet exercice est discutable. Cepedant, ces tests s'intéressant à la fonction de plus haut niveau du service, on peut y trouver une forme d'intégration entre toutes les unités de plus bas niveau (les classes et les autres fonctions)
