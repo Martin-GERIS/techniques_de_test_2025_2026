@@ -14,9 +14,10 @@ Un attribut liste contenant les coordonnées de chaque `Point`.<br>
 Un attribut pour les coordonnées de chaque somment.  <br>
 
 ### Classe `Triangles`
-Un attribut `PointSet`. Un attribut liste contenant des `Triangle`.<br>
+Un attribut `PointSet`. Un attribut liste contenant les indices des `Point` du Triangle dans le `PointSet`.<br>
 
 ### Fonction `Tringulation`
+Utilise un `PointSet` pour renvoyer un `Triangles`.<br>
 
 ### Fonction `DecimalConverter`
 Utilise une valeur binaire pour renvoyer un `PointSet`.<br>
@@ -28,7 +29,7 @@ Utilise un `Triangles` pour renvoyer une valeur binaire correspondante.<br>
 Demande à `PointSetManager` le `PointSet` relatif au `PointSetId`. Renvoit ce `PointSet` et le code de `PointSetManager`.<br>
 
 ### Fonction `GetTriangulation`
-Recoit un `PointSetId` du `Client` pour lui renvoiyer une valeur binaire référent un `Triangles`.<br>
+Recoit un `PointSetId` du `Client` pour lui renvoyer une valeur binaire référent un `Triangles`.<br>
 
 
 ## Tests unitaires
@@ -82,14 +83,14 @@ nombre de point annoncé ne correspond pas au nombre de point listé
 
 ### Tests de charge
 
-- [ ] Mesure du temps de réponse avec un `PointSet` de 3 points<br>
-- [ ] Mesure du temps de réponse avec un `PointSet` de 30 points<br>
-- [ ] Mesure du temps de réponse avec un `PointSet` de 150 points<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 3 points<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 30 points<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 150 points<br>
 
-- [ ] Mesure du temps de réponse avec 1 `PointSetID`<br>
-- [ ] Mesure du temps de réponse avec 10 `PointSetID`<br>
-- [ ] Mesure du temps de réponse avec 50 `PointSetID`<br>
+- [x] Mesure du temps de réponse avec 5 `PointSetID`<br>
+- [x] Mesure du temps de réponse avec 10 `PointSetID`<br>
+- [x] Mesure du temps de réponse avec 50 `PointSetID`<br>
 
 ### Test d'endurance
 
-- [ ] Mesure du temps de réponse avec un `PointSet` de 12 points pendant 1m (un `PointSet` toute les 1 seconde)<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 12 points pendant 1m (un `PointSet` toute les 1 seconde)<br>
