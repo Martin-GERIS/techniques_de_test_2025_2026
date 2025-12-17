@@ -5,20 +5,17 @@ from App.functions import triangulation, decimalConverter, binaryConverter, call
 app = Flask(__name__)
 
 @app.route("/triangulation/<point_set_id>", methods=["GET"])
-def GetTriangulation(pointSetId):
+def getTriangulation(pointSetId):
     pointSetBin, code = callPointSetManager(pointSetId)
     match code:
         case 200:
             pointSet = decimalConverter(pointSetBin)
             triangles = triangulation(pointSet)
             trianglesBin = binaryConverter(triangles)
-            return trianglesBin
+            return trianglesBin, 200
         case 400:
-            return jsonify({"error": "Bad Request"}), 400
+            return "Error : Invalid PointSetId format", 400
         case 404:
-            return jsonify({"error": "Bad Request"}), 400
+            return "Error : Not found", 404
         case 503:
-            return jsonify({"error": "Service Unavailable"}), 503
-
-if __name__ == "__main__":
-    app.run(debug=True)
+            return "Error :  Service Unavailable", 503

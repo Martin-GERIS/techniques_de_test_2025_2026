@@ -9,3 +9,6 @@
 
 <b> 16/12 : </b> <br>
 - Le terme tests d'intégrations donné à certains test dans cet exercice est discutable. Cepedant, ces tests s'intéressant à la fonction de plus haut niveau du service, on peut y trouver une forme d'intégration entre toutes les unités de plus bas niveau (les classes et les autres fonctions)
+
+<b> 17/12 : </b> <br>
+- Les modifications des tests apportés jusqu'à maintenant ont surtout concerné de petits détails comme le changement de nom de fonction. Mais certains changements ont concernés des éléments de logique plus important. Par exemple, nous avons du changer la manière dont nous utilisions les valeurs binaires afin de nous conformer au stantdard.

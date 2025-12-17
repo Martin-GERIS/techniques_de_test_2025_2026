@@ -2,14 +2,13 @@ test:
 	pytest -v
 
 unit_test:
-	pytest -vv Triangulator/Tests/test_unit.py
-# 	pytest -v Triangulator/Tests/test_integration.py
+	pytest -vv Triangulator/Tests/test_unit.py Triangulator/Tests/test_integration.py
 
 perf_test:
 	pytest -v Triangulator/Tests/test_perf.py
 
 coverage:
-	coverage run -m pytest Triangulator/Tests/test_unit.py
+	coverage run -m pytest Triangulator/Tests/test_unit.py Triangulator/Tests/test_integration.py
 	coverage html
 	coverage report
 
