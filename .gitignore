@@ -3,3 +3,10 @@ Triangulator/env_dev/
 **/__pycache__
 
 .vscode/
+
+.coverage
+
+htmlcov/
+.ruff_cache/
+.pytest_cache/
+docs/

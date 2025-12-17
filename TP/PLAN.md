@@ -83,14 +83,14 @@ nombre de point annoncé ne correspond pas au nombre de point listé
 
 ### Tests de charge
 
-- [ ] Mesure du temps de réponse avec un `PointSet` de 3 points<br>
-- [ ] Mesure du temps de réponse avec un `PointSet` de 30 points<br>
-- [ ] Mesure du temps de réponse avec un `PointSet` de 150 points<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 3 points<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 30 points<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 150 points<br>
 
-- [ ] Mesure du temps de réponse avec 1 `PointSetID`<br>
-- [ ] Mesure du temps de réponse avec 10 `PointSetID`<br>
-- [ ] Mesure du temps de réponse avec 50 `PointSetID`<br>
+- [x] Mesure du temps de réponse avec 5 `PointSetID`<br>
+- [x] Mesure du temps de réponse avec 10 `PointSetID`<br>
+- [x] Mesure du temps de réponse avec 50 `PointSetID`<br>
 
 ### Test d'endurance
 
-- [ ] Mesure du temps de réponse avec un `PointSet` de 12 points pendant 1m (un `PointSet` toute les 1 seconde)<br>
+- [x] Mesure du temps de réponse avec un `PointSet` de 12 points pendant 1m (un `PointSet` toute les 1 seconde)<br>

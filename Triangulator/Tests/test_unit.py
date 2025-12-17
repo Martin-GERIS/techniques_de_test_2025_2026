@@ -2,8 +2,8 @@ import pytest
 import uuid
 from urllib import request
 from unittest.mock import patch, MagicMock
-from App.functions import triangulation, decimalConverter, binaryConverter, callPointSetManager
-from App.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError, EmptyPointSetError
+from app.functions import triangulation, decimalConverter, binaryConverter, callPointSetManager
+from app.classes import Point, PointSet, Triangle, Triangles, ColinearityError, OverlappingError, WrongMaskError, EmptyPointSetError
 
 
 
@@ -131,7 +131,7 @@ class TestBinaryConverter :
 
 class TestCallPointSetManager :
 
-    @patch("App.functions.request.urlopen") # App désigne le nom du futur fichier ou sera le requests.get à remplacer
+    @patch("app.functions.request.urlopen") # App désigne le nom du futur fichier ou sera le requests.get à remplacer
     def test_callpointsetmanager_valid(self, mock_urlopen):
         fake_response = MagicMock()
         fake_response.status = 200
@@ -142,7 +142,7 @@ class TestCallPointSetManager :
         assert(code == 200)
         assert(pointSetBin==b'\x00\x00\x00\x03\xbf\x00\x00\x00\xbf\x00\x00\x00\x00\x00\x00\x00\x3f\x80\x00\x00\x3f\xc0\x00\x00\x00\x00\x00\x00')
 
-    @patch("App.functions.request.urlopen")
+    @patch("app.functions.request.urlopen")
     def test_callpointsetmanager_invalid(self, mock_urlopen):
         fake_response = MagicMock()
         fake_response.status = 400
@@ -153,7 +153,7 @@ class TestCallPointSetManager :
         assert(code == 400)
         assert(pointSet is None)
 
-    @patch("App.functions.request.urlopen")
+    @patch("app.functions.request.urlopen")
     def test_callpointsetmanager_unknow(self, mock_urlopen):
         fake_response = MagicMock()
         fake_response.status = 404
@@ -164,7 +164,7 @@ class TestCallPointSetManager :
         assert(code == 404)
         assert(pointSet is None)
 
-    @patch("App.functions.request.urlopen")
+    @patch("app.functions.request.urlopen")
     def test_callpointsetmanager_error(self, mock_urlopen):
         fake_response = MagicMock()
         fake_response.status = 503

@@ -1,5 +1,6 @@
 import math
 
+
 class Point:
     def __init__(self, x, y):
         self.x = x
@@ -24,7 +25,8 @@ class Point:
         return self.y
 
 class PointSet:
-    '''Un attribut liste d'instance de Point'''
+    """Un attribut liste d'instance de Point"""
+
     def __init__(self, list_points):
         self.pointset = list_points
 
@@ -35,7 +37,8 @@ class PointSet:
         return self.pointset
 
 class Triangle:
-    '''Trois attributs Point'''
+    """Trois attributs Point"""
+
     def __init__(self, a, b, c):
         self.a = a
         self.b = b
@@ -73,7 +76,8 @@ class Triangle:
         return [(self.a, self.b), (self.b, self.c), (self.c, self.a)]
 
 class Triangles:
-    '''Un attribut PointSet et un attribut liste d'instance de Triangle'''
+    """Un attribut PointSet et un attribut liste d'instance de Triangle"""
+
     def __init__(self, list_points, list_triangles):
         self.pointset = list_points
         self.triangles = list_triangles
@@ -91,17 +95,21 @@ class Triangles:
         self.triangles.remove(triangle)
 
 class ColinearityError(ArithmeticError):
-    """Quand un ensemble de point est colinéaire"""
+    """Quand un ensemble de point est colinéaire."""
+
     pass
 
 class OverlappingError(ArithmeticError):
-    """Quand au moins deux points d'un ensemble se superposent"""
+    """Quand au moins deux points d'un ensemble se superposent."""
+
     pass
 
 class WrongMaskError(ValueError):
-    """Quand une valeur binaire n'a pas le bon format"""
+    """Quand une valeur binaire n'a pas le bon format."""
+
     pass
 
 class EmptyPointSetError(ValueError):
-    """Quand un PointSet est vide ou nulle"""
+    """Quand un PointSet est vide ou nulle."""
+
     pass

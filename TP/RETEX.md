@@ -1,14 +1,13 @@
 # TODO
 
-### NOTES :
-<b> 02/12 : </b> <br>
-- Les tests de charge global se base sur une seule et même valeur, que ce soit pour les PointSetId ou pour la valeur binaire des PointSet. Il aurait sans doute était plus pertinent de proposer des valeurs différentes. On aurait utiliser la bibliothèque random avec une seed. <br>
+## Retrospective
 
-<b> 11/12 : </b> <br>
-- Les tests pour la fonction binaryConverter() ne sont pas assez nombreux. Bien qu'il couvre l'intégralité du code, il ne vérifie pas des certains scénarios. Il serait pertinent d'ajouter des tests.
+Lors de la première parti du TP, nous avons dû mettre en place les tests avant la logique. Cet exercice c'est avéré difficile en raison de notre découverte de certains outils et technologies comme les API. Cependant, il a rendu la seconde partie du TP plus simple. Le travail de réflexion fait en amont nous a probablement permis d'avancé plus vite sur le développement du service. La dernière séance a été réservée à la documentation et à la qualimétrie. Nous n'avons pas réussi à mettre en place l'intégralité de la documentation notamment pour les classes. Il en résulte que nous n'avons pu assurer une bonne qualimétrie. <br>
 
-<b> 16/12 : </b> <br>
-- Le terme tests d'intégrations donné à certains test dans cet exercice est discutable. Cepedant, ces tests s'intéressant à la fonction de plus haut niveau du service, on peut y trouver une forme d'intégration entre toutes les unités de plus bas niveau (les classes et les autres fonctions)
+## Critique
 
-<b> 17/12 : </b> <br>
-- Les modifications des tests apportés jusqu'à maintenant ont surtout concerné de petits détails comme le changement de nom de fonction. Mais certains changements ont concernés des éléments de logique plus important. Par exemple, nous avons du changer la manière dont nous utilisions les valeurs binaires afin de nous conformer au stantdard.
+Concernant la mise en place des tests, nous avons obtenu une couverture de plus de 90 %. Ce résultat, bien que très satisfaisant, ne suffit pas selon nous. D'autres tests auraient pu être ajoutés afin de couvrir des cas non pris en charge par le code actuelle. Ceci aurait alors nécessité des mises à jour du programme principal. Le terme "tests d'intégrations" donné à certains tests dans cet exercice est discutable. Cependant, ces tests s'intéressant à la fonction de plus haut niveau du service, nous y trouver une forme d'intégration entre toutes les unités de plus bas niveau (les classes et les autres fonctions). Les tests de performance ont selon nous été sous exploités. Il aurait été pertinent d'en ajouter afin de pouvoir comparer les différents résultats obtenus. Par exemple, en ajoutant un test mesurant le temps pris par le traitement global, on aurait pu comparer ces résultats à celui mesurant le temps de triangulation. De plus, les valeurs telles que le nombre de points ou de requêtes générés ont été fixés arbitrairement, tester un plus grand nombre de valeur aurait été pertinent. Également le contenu de certains tests de performance aurait pu être randomisé au lieu de constamment testé les mêmes valeurs. Les conditions auraient alors été plus proches de celle de l'utilisation réelle. <br>
+
+Nous considérons la planification des tests comme un succès. En effet, peu de modifications ont été nécessaires, la majorité a concerné des changements de nom ou des changements de syntaxe. Il est à noter que des changements de logique plus conséquents ont été nécessaires comme c'est le cas avec le type des valeurs binaires utilisées. Cela s'explique en partie par le manque de connaissances et d'expertise dans les domaines exploités par l'exercice. Finalement, aucun test n'a été rajouté ou supprimer après la planification. <br>
+
+Le TDD a été pour nous une découverte. Il s'agit d'une méthode de travail intéressante poussant à une conceptualisation avancée avant la programmation ce que nous faisons assez rarement. L'adoption de cette méthode représente probablement un important gain de temps sur des projets conséquents. Nous avons d'ailleurs réfléchi à mettre en place cette méthodologie pour le Projet GLA de ce semestre. Néanmoins, nous nous heurtons à la même problématique que dans ce TD, sans une bonne connaissance et une bonne compréhension des outils utilisés, le TDD complexifie l'exercice initial. <br>
